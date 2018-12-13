@@ -14,9 +14,15 @@ Compilateur : MinGW-g++ <6.3.0>
  */
 
 #include <iostream>
+#include "rules.cpp"
+#include "display.cpp"
 
 int main() {
+    StateCase actualBoard[SIZE_BOARD][SIZE_BOARD] = {};
 
-	std::cout << "Hello World" << std::endl;
-	return 0;
+    initGame(actualBoard);
+
+    displayBoard(actualBoard);
+
+    return 0;
 }

@@ -1,9 +1,13 @@
 #include "display.h"
 
+#include <cstddef>
+#include <iomanip>
+#include <iostream>
+
 void displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
-    
-    for (size_t i = 0; i < SIZE_BOARD + 0; ++i) {
-        for (size_t j = 0; j < SIZE_BOARD + 0; ++j) {
+
+    for (std::size_t i = 0; i < SIZE_BOARD + 0; ++i) {
+        for (std::size_t j = 0; j < SIZE_BOARD + 0; ++j) {
         
             switch (board[i][j]) {
 
@@ -19,10 +23,10 @@ void displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
                     displayCell(DOTCASE);
             }
 
-            cout << endl;
+            std::cout << std::endl;
         }
         
-        cout << endl;
+        std::cout << std::endl;
     }
 }
 

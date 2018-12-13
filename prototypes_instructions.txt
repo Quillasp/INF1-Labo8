@@ -11,7 +11,7 @@ erase(int x, int y, StateCase board[SIZE_BOARD][SIZE_BOARD])
 
 const int SIZE_BOARD = 7;
 const int DO_BETTER = 5;
-const enum class StateCase = { VOID, FILLED, DOT }
+enum class StateCase = { FILLED, VOID, DOT }
 const char movesAllowed[] = { 'd', 'u', 'r', 'l' }
 
 StateCase boardGame[SIZE_BOARD][SIZE_BOARD]

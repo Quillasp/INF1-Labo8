@@ -6,9 +6,7 @@
 #define LABO8_GLOBAL_H
 
 const int SIZE_BOARD = 7;
-const int DO_BETTER = 5;
-const enum class StateCase = { VOID, FILLED, DOT };
-const char movesAllowed[] = { 'd', 'u', 'r', 'l' };
-checkInputs(string userInput);
+enum class StateCase { FILLED, VOID, DOT };
+enum class MoveAllowed { DOWN = int('d'), UP = int('u'), RIGHT = int('r'), LEFT = int('l') };
 
 #endif //LABO8_GLOBAL_H
