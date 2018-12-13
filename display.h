@@ -5,7 +5,13 @@
 #ifndef LABO8_DISPLAY_H
 #define LABO8_DISPLAY_H
 
-displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]);
-help(StateCase board[SIZE_BOARD][SIZE_BOARD]);
+const int SIZE_BOARD = 7;
+const enum class StateCase = { FILLED, VOID, DOT };
+const char VOIDCASE = ' ';
+const char DOTCASE = '.';
+
+void displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]);
+void help(StateCase board[SIZE_BOARD][SIZE_BOARD]);
+void displayCell(char c);
 
 #endif //LABO8_DISPLAY_H
