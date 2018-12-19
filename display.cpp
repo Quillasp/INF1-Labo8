@@ -38,13 +38,13 @@ void help(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
     for(size_t i = 0; i < SIZE_BOARD; ++i){
         for(size_t j = 0; j < SIZE_BOARD; ++j){
             if(board[i][j] == StateCase::DOT) {
-                if(j + 2 >= 0 && j + 2 < SIZE_BOARD && board[i][j + 1] == StateCase::FILLED && board[i][j + 2] == StateCase::FILLED)
+                if(j + 2 < SIZE_BOARD && board[i][j + 1] == StateCase::FILLED && board[i][j + 2] == StateCase::FILLED)
                     std::cout << i + 1 << j + 3 << 'l' << " ";// RIGHT
-                if(j - 2 >= 0 && j - 2 < SIZE_BOARD && board[i][j - 1] == StateCase::FILLED && board[i][j - 2] == StateCase::FILLED)
+                if(j - 2 < SIZE_BOARD && board[i][j - 1] == StateCase::FILLED && board[i][j - 2] == StateCase::FILLED)
                     std::cout << i + 1 << j - 1 << 'r' << " "; // LEFT
-                if(i + 2 >= 0 && i + 2 < SIZE_BOARD && board[i + 1][j] == StateCase::FILLED && board[i + 2][j] == StateCase::FILLED)
+                if(i + 2 < SIZE_BOARD && board[i + 1][j] == StateCase::FILLED && board[i + 2][j] == StateCase::FILLED)
                     std::cout << i + 3 << j + 1 << 'u' << " "; // UP
-                if(i - 2 >= 0 && i - 2 < SIZE_BOARD && board[i - 1][j] == StateCase::FILLED && board[i - 2][j] == StateCase::FILLED)
+                if(i - 2 < SIZE_BOARD && board[i - 1][j] == StateCase::FILLED && board[i - 2][j] == StateCase::FILLED)
                     std::cout << i - 1 << j + 1 << 'd' << " "; // DOWN
             }
         }
@@ -59,7 +59,7 @@ void displayWinCondition(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
     if (nbMarbles > 5) {
         std::cout << "Vous pouvez faire mieux, il reste " << nbMarbles << " billes." << std::endl;
-    } else if (nbMarbles < 5 && nbMarbles >= 2) {
+    } else if (nbMarbles <= 5 && nbMarbles >= 2) {
         std::cout << "Pas mal, il ne reste que " << nbMarbles << " billes." << std::endl;
     } else if (nbMarbles < 2) {
         if(board[3][3] == StateCase::FILLED)
