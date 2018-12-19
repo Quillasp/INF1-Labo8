@@ -19,10 +19,43 @@ Compilateur : MinGW-g++ <6.3.0>
 
 int main() {
     StateCase actualBoard[SIZE_BOARD][SIZE_BOARD] = {};
+    const std::string MSG_ERROR = "Entree non valide";
 
     initGame(actualBoard);
+    bool isValid, stopGame = true;
 
-    displayBoard(actualBoard);
+    do{
+        std::string inputUser;
+        displayBoard(actualBoard);
+
+        std::cout << "Entrez votre deplacement" << std::endl;
+        std::cin >> inputUser;
+
+        if(inputUser.length() == 1){
+            if(inputUser.at(0) == 'h')
+                help(actualBoard);
+            else if(inputUser.at(0) == 'q')
+                stopGame = false;
+            else
+                std::cout << MSG_ERROR << std::endl;
+
+        }else if(inputUser.length() == 3) {
+
+            isValid = checkInputs(inputUser, actualBoard);
+
+            if (isValid) {
+                char firstChar = inputUser.at(0), secondChar = inputUser.at(1);
+
+                int valFChar = firstChar - '0', valSChar = secondChar - '0';
+
+                move(valSChar, valFChar, char(tolower(inputUser.at(2))), actualBoard);
+
+                stopGame = gameOver(actualBoard);
+            } else {
+                std::cout << MSG_ERROR << std::endl;
+            }
+        }
+    }while(stopGame);
 
     return 0;
 }
