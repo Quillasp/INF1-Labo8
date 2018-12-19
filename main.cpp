@@ -22,40 +22,48 @@ int main() {
     const std::string MSG_ERROR = "Entree non valide";
 
     initGame(actualBoard);
-    bool isValid, stopGame = true;
+    bool isValid, stopGame;
 
     do{
         std::string inputUser;
         displayBoard(actualBoard);
 
-        std::cout << "Entrez votre deplacement" << std::endl;
-        std::cin >> inputUser;
+        stopGame = gameOver(actualBoard);
 
-        if(inputUser.length() == 1){
-            if(inputUser.at(0) == 'h')
-                help(actualBoard);
-            else if(inputUser.at(0) == 'q')
-                stopGame = false;
-            else
-                std::cout << MSG_ERROR << std::endl;
+        if(stopGame) {
 
-        }else if(inputUser.length() == 3) {
+            std::cout << "Entrez votre deplacement" << std::endl;
+            std::cin >> inputUser;
 
-            isValid = checkInputs(inputUser, actualBoard);
+            if (inputUser.length() == 1) {
+                if (inputUser.at(0) == 'h')
+                    help(actualBoard);
+                else if (inputUser.at(0) == 'q')
+                    stopGame = false;
+                else
+                    std::cout << MSG_ERROR << std::endl;
 
-            if (isValid) {
-                char firstChar = inputUser.at(0), secondChar = inputUser.at(1);
+            } else if (inputUser.length() == 3) {
 
-                int valFChar = firstChar - '0', valSChar = secondChar - '0';
+                isValid = checkInputs(inputUser, actualBoard);
 
-                move(valSChar, valFChar, char(tolower(inputUser.at(2))), actualBoard);
+                if (isValid) {
+                    char firstChar = inputUser.at(0), secondChar = inputUser.at(1);
 
-                stopGame = gameOver(actualBoard);
-            } else {
+                    int valFChar = firstChar - '0', valSChar = secondChar - '0';
+
+                    move(valSChar, valFChar, char(tolower(inputUser.at(2))), actualBoard);
+                } else {
+                    std::cout << MSG_ERROR << std::endl;
+                }
+            }
+            else{
                 std::cout << MSG_ERROR << std::endl;
             }
         }
     }while(stopGame);
+
+    displayWinCondition(actualBoard);
 
     return 0;
 }

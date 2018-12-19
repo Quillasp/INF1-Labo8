@@ -45,8 +45,9 @@ bool checkInputs(std::string userInput, StateCase board[SIZE_BOARD][SIZE_BOARD])
 
         int valFChar = firstChar - '0', valSChar = secondChar - '0';
 
-        return isdigit(firstChar) && isdigit(secondChar) &&
-               moveValid(valSChar, valFChar, char(tolower(userInput.at(2))), board);
+        bool value = moveValid(valSChar, valFChar, char(tolower(userInput.at(2))), board);
+
+        return isdigit(firstChar) && isdigit(secondChar) && value;
     }
 
     return false;
@@ -74,26 +75,34 @@ void move(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD])
             board[y - 1][x - 1] = StateCase::DOT;
             board[y - 1][x + 1] = StateCase::FILLED;
             break;
-        default:
-            break;
     }
 
 }
 
 bool moveValid(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
-    if(board[y - 1][x - 1] == StateCase::FILLED) {
+    int xArray = x - 1, yArray = y - 1;
+
+    if(xArray >= 0 && xArray < SIZE_BOARD &&
+    yArray >= 0 && yArray < SIZE_BOARD &&
+    board[yArray][xArray] == StateCase::FILLED){
         switch (MoveAllowed(int(direction))) {
             case MoveAllowed::DOWN:
-                return board[y + 1][x - 1] == StateCase::DOT;
+                if(y + 1 >= 0 && y + 1 < SIZE_BOARD)
+                    return board[y][xArray] == StateCase::FILLED && board[y + 1][xArray] == StateCase::DOT;
+                break;
             case MoveAllowed::UP:
-                return board[y - 3][x - 1] == StateCase::DOT;
+                if(y - 3 >= 0 && y - 3 < SIZE_BOARD)
+                    return board[y - 2][xArray] == StateCase::FILLED && board[y - 3][xArray] == StateCase::DOT;
+                break;
             case MoveAllowed::LEFT:
-                return board[y - 1][x - 3] == StateCase::DOT;
+                if(x - 3 >= 0 && x - 3 < SIZE_BOARD)
+                    return board[yArray][x - 2] == StateCase::FILLED && board[yArray][x - 3] == StateCase::DOT;
+                break;
             case MoveAllowed::RIGHT:
-                return board[y - 1][x + 1] == StateCase::DOT;
-            default:
-                return false;
+                if(x + 1 >= 0 && x + 1 < SIZE_BOARD)
+                    return board[yArray][x] == StateCase::FILLED && board[yArray][x + 1] == StateCase::DOT;
+                break;
         }
     }
 
@@ -105,10 +114,15 @@ bool gameOver(StateCase board[SIZE_BOARD][SIZE_BOARD]){
     for(size_t i = 0; i < SIZE_BOARD; ++i){
         for(size_t j = 0; j < SIZE_BOARD; ++j){
             if(board[i][j] == StateCase::FILLED) {
-                if(moveValid(i, j, char(MoveAllowed::UP), board) ||
-                moveValid(i, j, char(MoveAllowed::DOWN), board) ||
-                moveValid(i, j, char(MoveAllowed::LEFT), board) ||
-                moveValid(i, j, char(MoveAllowed::RIGHT), board))
+
+                int x = j + 1, y = i + 1;
+
+                bool b1 = moveValid(x, y, char(MoveAllowed::UP), board);
+                bool b2 = moveValid(x, y, char(MoveAllowed::DOWN), board);
+                bool b3 = moveValid(x, y, char(MoveAllowed::LEFT), board);
+                bool b4 = moveValid(x, y, char(MoveAllowed::RIGHT), board);
+
+                if(b1 || b2 || b3 || b4)
                     return true;
             }
         }
