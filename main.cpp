@@ -14,8 +14,8 @@ Compilateur : MinGW-g++ <6.3.0>
  */
 
 #include <iostream>
-#include "rules.cpp"
-#include "display.cpp"
+#include "rules.h"
+#include "display.h"
 
 int main() {
     StateCase actualBoard[SIZE_BOARD][SIZE_BOARD] = {};

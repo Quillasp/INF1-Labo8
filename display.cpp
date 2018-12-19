@@ -72,8 +72,8 @@ void displayWinCondition(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 int countNumMarbles(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
     int counter = 0;
 
-    for (int i = 0; i < SIZE_BOARD; ++i) {
-        for (int j = 0; j < SIZE_BOARD; ++j) {
+    for (size_t i = 0; i < SIZE_BOARD; ++i) {
+        for (size_t j = 0; j < SIZE_BOARD; ++j) {
             if (board[i][j] == StateCase::FILLED) {
                 counter++;
             }
