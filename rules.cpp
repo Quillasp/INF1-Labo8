@@ -73,7 +73,7 @@ bool checkInputs(std::string userInput, StateCase board[SIZE_BOARD][SIZE_BOARD])
              * 19d -> valFChar (ligne) = 1, valSChar (colonne) = 9, d transmis comme caractère
              */
 
-            return moveValid(valSChar, valFChar, char(tolower(userInput.at(2))), board);
+            return moveValid((size_t)valSChar, (size_t)valFChar, char(tolower(userInput.at(2))), board);
         }
     }
 
@@ -116,13 +116,13 @@ void move(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD])
 
 }
 
-bool moveValid(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD]) {
+bool moveValid(size_t x, size_t y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
     /**
      * xArray => x qui est dans notre tableau : 1 devient 0, 7 devient 6, ...
      * yArray => y qui est dans notre tableau : 1 devient 0, ...
      */
-    int xArray = x - 1, yArray = y - 1;
+    size_t xArray = x - 1, yArray = y - 1;
 
     /**
      * Nous vérifions que nos transformations de position sont bien dans nos bornes et que la case que nous
@@ -190,7 +190,7 @@ bool gameOver(StateCase board[SIZE_BOARD][SIZE_BOARD]){
         for(size_t j = 0; j < SIZE_BOARD; ++j){
             if(board[i][j] == StateCase::FILLED) {
 
-                int x = j + 1, y = i + 1;
+                size_t x = j + 1, y = i + 1;
 
                 // Vérifie si le déplacement est possible vers le haut
                 bool upValid = moveValid(x, y, char(MoveAllowed::UP), board);

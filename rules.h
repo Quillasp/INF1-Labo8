@@ -8,8 +8,6 @@
 #include "global.h"
 #include <string>
 
-const int DO_BETTER = 5;
-
 /**
  * Le plateau est rempli de case d'état "FILLED". La fonction va modifier le tableau de StateCase passé en paramètre
  * pour lui assigner des états VOID et des états DOT à certaines cases précises
@@ -35,7 +33,7 @@ void move(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD])
  * @param board Plateau de jeu que nous modifierons
  * @return true si le mouvement est valide sinon false
  */
-bool moveValid(int x, int y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD]);
+bool moveValid(size_t x, size_t y, char direction, StateCase board[SIZE_BOARD][SIZE_BOARD]);
 
 /**
  * Vérifie si il n'y a plus de déplacement possibles. Dans ce cas-là, la partie est terminée.

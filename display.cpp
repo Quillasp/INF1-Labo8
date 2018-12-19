@@ -6,6 +6,14 @@
 
 void displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
+    /**
+     * Parcours chaque case du tableau et fait l'affichage suivant ce qui a été défini dans l'initialisation :
+     * - FILLED : affiche les coordonnées de la case en partant de 1 (comme dans une matrice)
+     * - VOID   : affiche un espace dans la configuration de base pour indiquer qu'il n'y a rien à cet endroit, qu'il
+     *            est hors de la table de jeu
+     * - DOT    : affiche deux points dans la configuration de base pour indiquer que la case est vide et qu'on peut y
+     *            placer une bille pour un mouvement (s'il est possible, bien entendu)
+     */
     for (std::size_t i = 0; i < SIZE_BOARD + 0; ++i) { // Ligne
         for (std::size_t j = 0; j < SIZE_BOARD + 0; ++j) { // Colonne
         
@@ -23,10 +31,8 @@ void displayBoard(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
                     std::cout << std::string(CHAR_REP, DOTCASE) + std::string(1, VOIDCASE);
                     break;
             }
-
-            // std::cout << std::endl;
         }
-        
+
         std::cout << std::endl;
     }
 }
@@ -35,6 +41,13 @@ void help(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
     std::cout << "Deplacements possibles : ";
 
+    /**
+     * Parcours le tableau et affiche les possibilité de jeu de la part du joueur.
+     * En prenant en compte que la case à partir de laquelle on fait les tests doit être en DOT :
+     * - on regarde si la case à sa droite contient une bille et celle d'encore à droite, par exemple :
+     *   ".. 45 46" va nous donner "46l"
+     * - on répète cette opération pour les trois autres côtés.
+     */
     for(size_t i = 0; i < SIZE_BOARD; ++i){
         for(size_t j = 0; j < SIZE_BOARD; ++j){
             if(board[i][j] == StateCase::DOT) {
@@ -55,6 +68,15 @@ void help(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
 void displayWinCondition(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 
+    /**
+     * À la fin d'une partie, on compte le nombre de billes encore présentent dans le jeu.
+     * S'il y en a :
+     * - plus de 5 : on indique un message une sorte de "peut mieux faire"
+     * - entre 2 et 5 : on affiche un message disant que c'est pas mal joué
+     * - 1 :
+     *      - si elle est au centre, c'est une partie parfaite
+     *      - sinon, c'est quand même une très bonne partie
+     */
     int nbMarbles = countNumMarbles(board);
 
     if (nbMarbles > 5) {
@@ -72,6 +94,9 @@ void displayWinCondition(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
 int countNumMarbles(StateCase board[SIZE_BOARD][SIZE_BOARD]) {
     int counter = 0;
 
+    /**
+     * Parcours la table de jeu pour compter le nombre de billes restante.
+     */
     for (size_t i = 0; i < SIZE_BOARD; ++i) {
         for (size_t j = 0; j < SIZE_BOARD; ++j) {
             if (board[i][j] == StateCase::FILLED) {
